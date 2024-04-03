@@ -1,5 +1,6 @@
 # Εισαγωγή στο Angular Framework
 
+
 ## Βήμα 0: Προετοιμασία και βασικές ενέργειες
 
 - Εγκατάσταση του Angular CLI
@@ -129,11 +130,15 @@
   }
   ```
   
+
+
   
   ## Βήμα 1: Απλή δέσμευση χαρακτηριστικών (one way binding)
 
 - Χρήση του placeholder `{{ <atribute_name > }}` για τη δεσμευση του χαρακτηριστικού `attribute_name` στο template του component.
 - Αν το χαρακτηριστικό της κλάσης είναι αντικείμενο τότε χρησιμοποιούμε τη γνωστή σύνταξη `{{ <object_name>.<attribute_name> }}`.
+
+
 
 
 ## Βήμα 2: Δημιουργία νέου component
@@ -143,6 +148,8 @@
 - Μεταφορά του χαρακτηριστικού `person` από την κλάση `AppComponent` στην κλάση `PersonTableComponent`.
 - Συμπερίληψη της κλάσης `PersonTableComponent` στον πίνακα `imports` στην αρχικοποίηση του decorator στο αρχείο `app.component.ts`.
 - Χρήση του νέου component στο template του `app.component.html` με την ετικέτα `<app-person-table></app-person-table>`.
+
+
 
 
 ## Βήμα 3: Component Input
@@ -179,6 +186,7 @@
   ```
 
 
+
   ## Βήμα 4: @for Template Directive
 
 - Ορισμός χαρακτηριστικού `persons` τύπου `Person[]` στην κλάση `AppComponent` (πίνακας αντικειμένων τύπου `Person`)
@@ -189,6 +197,8 @@
   <app-person-table [person]="user"></app-person-table>
   }
   ```
+
+
   
   ## Βήμα 5: Event binding
 
@@ -203,6 +213,7 @@
   ```html
   <input type="text" (input)="onInput($event)" />
   ```
+
 
 
   ## Βήμα 6: Routing
@@ -264,6 +275,8 @@
   2. Ενημέρωση του html μενού με τις κατάλληλες οδηγίες `routerLink`
 
 
+
+
   ## Βήμα 7: Fancy App Menu με το [list-group](https://t.ly/vmYc2) του Bootstrap
 
 - Δημιουργία νέου interface `MenuItem` στο αρχείο `shared/interfaces/menu-item.ts`:
@@ -289,4 +302,64 @@
     { text: '@for Directive Example', routerLink: 'for-directive-example' },
     { text: 'Event Bind Example', routerLink: 'event-bind-example' },
   ];
+  ```
+
+
+
+  ## Βήμα 8: Simple Datatable
+
+- Χρήση του https://cobbl.io/ για να παράξουμε ένα πίνακα με πολλά δεδομένα τύπου `ΕPerson` που ορίζουμε στο `/shared/interfaces/person.ts`:
+
+  ```typescript
+  export interface EPerson {
+    givenName: string;
+    surName: string;
+    age: string;
+    email: string;
+    address: string;
+    education: string;
+  }
+
+  export const ManyPerson: EPerson[] = [
+    {
+      given_name: 'Sarah',
+      surName: 'Howard',
+      age: '41',
+      email: 's.m.howard@yahoo.com',
+      education: 'Some college, no degree',
+    },
+    ...
+  ```
+
+- Δημιουργία του `SimpleDataTableComponent`: λαμβάνει δεδομένα τύπου `EPerson` και τα εμφανίζει σε έναν πίνακα με δυνατότητα ταξινόμησης ανά στήλη
+- Δημιουργία του `SimpleDataTableExampleComponent`: χρησιμοποιεί το `SimpleDataTableComponent`
+- Ενημέρωση του μενού της εφαρμογής μας
+
+  - `app.routes.ts`:
+
+    ```typescript
+    ...
+    {
+      path: 'simple-data-table-example',
+      component: SimpleDatatableExampleComponent,
+    }
+    ...
+    ```
+
+  - `list-group-menu.component.ts`:
+
+    ```typescript
+    ...
+    {
+      text: 'Simple Data Table Example',
+      routerLink: 'simple-data-table-example',
+    }
+    ...
+    ```
+
+- Εγκατάταση του `lodash-es`:
+
+  ```bash
+  npm i lodash-es
+  npm i --save-dev @types/lodash-es
   ```
